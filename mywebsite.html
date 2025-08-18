@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的主页</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      background-color: #34495e;
+      padding: 0.8rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      border-left: 4px solid #2980b9;
+      padding-left: 0.5rem;
+      color: #2980b9;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>你好，我是小刘 👋</h1>
+    <p>欢迎来到我的个人主页</p>
+  </header>
+
+  <nav>
+    <a href="#about">关于我</a>
+    <a href="#projects">项目</a>
+    <a href="#contact">联系</a>
+  </nav>
+
+  <div class="container">
+    <section id="about">
+      <h2>关于我</h2>
+      <p>我是一名计算机科学爱好者，喜欢编程、算法和新技术探索。目前正在学习 C++ 和网络安全。</p>
+    </section>
+
+    <section id="projects">
+      <h2>我的项目</h2>
+      <ul>
+        <li>📖 教育管理系统（SpringBoot）</li>
+        <li>🩺 血压监测系统（Qt + 串口通信）</li>
+        <li>🤖 AI 标注系统（Python + Label Studio）</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>联系我</h2>
+      <p>📧 邮箱: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+      <p>💼 GitHub: <a href="https://github.com/lsy0421" target="_blank">github.com/你的GitHub用户名</a></p>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 小刘 | 使用 GitHub Pages 搭建</p>
+  </footer>
+
+</body>
+</html>
