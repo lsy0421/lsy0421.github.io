@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Another Day</title>
+
+  <!-- 样式表 -->
+  <link rel="stylesheet" href="../mainstyle.css">
+  
+  <link href="https://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    /* ---------- 基础样式 ---------- */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #e0e0e0;
+    }
+
+    .window {
+      width: 100%;
+      max-width: 1005px;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      background: #f0f0f0;
+      box-shadow: 0 0 0 1px #888;
+    }
+
+    .contents {
+      height: 650px;
+      position: relative;
+    }
+
+    /* ---------- 图片层 ---------- */
+    .title-frame img {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      opacity: 0; /* 默认隐藏 */
+    }
+
+    .frame { 
+      z-index: 5;
+      opacity: 1; /* 第一层立即可见 */
+    }
+
+    /* 第二层淡入 */
+    .frame2 {
+      z-index: 4;
+      animation: fadeIn 3s ease forwards;
+      animation-delay: 1s;
+    }
+
+    /* 第三层淡入 */
+    .frame3 {
+      z-index: 3;
+      animation: fadeIn 3s ease forwards;
+      animation-delay: 2s;
+    }
+
+   
+
+    /* 标题淡入闪烁 */
+    img.title {
+      z-index: 10;
+      position: absolute;
+      width: 100%;
+      max-width: 800px;
+      top: 47%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      animation: fadeInOut 5s ease-in-out infinite;
+      animation-delay: 3s;
+      cursor: pointer;
+    }
+
+    /* ---------- 菜单动画 ---------- */
+    .menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;    /* 垂直排列 */
+  align-items: center;       /* 水平居中 */
+  justify-content: center;   /* 垂直居中（与translate叠加） */
+  gap: 25px;                 /* 菜单项间距，可根据图片大小调整 */
+  opacity: 0;
+  z-index: 99;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+    .menu.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+   .menu-item {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+}
+
+.menu-item img {
+  display: block;
+  max-width: 700px;   /* 可根据图尺寸调整 */
+  height: auto;
+}
+
+
+    /* ---------- 动画关键帧 ---------- */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* ---------- 页脚 ---------- */
+    .copy {
+      text-align: center;
+      color: #9c9c9c;
+      font-family: "DM Mono", serif;
+      font-weight: 500;
+      font-size: 10px;
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .copy a {
+      color: #9c9c9c;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+  <div id="all" class="container">
+    <div class="window window-classic">
+      <div class="contents">
+        <div class="title-frame">
+          <img class="frame" src="image/74bcb93c8b3bcefd005e37f3551a0edc.png">
+          <img class="frame2" src="image/0572f1c3603276488090c35af1151c72.png">
+          <img class="frame3" src="image/bg.png">
+          <img class="title" src="image/63d22705bef2cdfd349a8c5d6fb4eec7.png" alt="KJO Title">
+        </div>
+
+        <div class="menu">
+          <div class="menu-item" onclick="location.href='../fic.php'">
+            <img src="image/238615f1d79ab32ea224b440988a637b.png">
+            
+          </div>
+          <div class="menu-item" onclick="location.href='../art.php'">
+            <img src="image/939aaeceb472a6938a0795ebf0b0f5ca.png">
+            
+          </div>
+          <div class="menu-item" onclick="location.href='../vid.php'">
+            <img src="image/2ffb14ff7e8d43515daaeae51647fea9.png">
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    
+
+  <!-- 纯 JS 控制菜单切换 -->
+  <script>
+    const title = document.querySelector(".title");
+    const menu = document.querySelector(".menu");
+
+    title.addEventListener("click", () => {
+      menu.classList.toggle("show");
+      if (menu.classList.contains("show")) {
+        title.style.display = "none";
+      } else {
+        title.style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>
