@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fic Directory</title>
+  <style>
+    /* 页面基础 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+
+/* 背景图全屏显示 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+  
+  url("image/74bcb93c8b3bcefd005e37f3551a0edc.png"),
+  url("image/bg.png") ;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center center, center center, center center;
+  background-size: cover, cover, cover;
+  background-attachment: fixed; /* 保持全屏背景 */
+  z-index: -3;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("image/0572f1c3603276488090c35af1151c72.png") center center / cover no-repeat fixed;
+  opacity: 0.3; /* ✅ 透明度调整在这里 */
+  z-index: -2; /* 覆盖在 before 之上 */
+  pointer-events: none; /* 防止遮挡交互 */
+}
+
+/* 蓝绿色半透明窗格（覆盖背景但在内容下方） */
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 1000px;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  background: rgba(2, 36, 191, 0);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  display: flex;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* 内容容器（置于窗格之上） */
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  height: 80%;
+  z-index: 2;
+}
+
+/* 左侧导航栏 */
+.sidebar {
+  width: 200px;
+  background: rgba(87, 133, 119, 0.188);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.2);
+}
+
+.sidebar img.logo {
+  width: 230px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.nav-item {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  transition: background 0.3s, opacity 0.3s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
+/* 右侧内容区 */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;;
+  align-items: center;
+  gap: 30px;
+  padding: 40px;
+}
+
+/* 目录按钮样式 */
+.fic-button {
+width: 80%;
+max-width: 700px;
+padding: 20px 30px;
+font-family:'YouYuan';
+font-weight: bold;
+/* 去掉左右边框，仅保留上下边框 */
+border-top: 2px solid rgba(255, 255, 255, 0);
+border-bottom: 2px solid rgba(255, 255, 255, 0);
+border-left: none;
+border-right: none;
+
+border-radius: 0;
+background: transparent;
+
+color: rgba(43, 93, 77, 0.736);
+font-size: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+text-decoration: none;
+opacity: 0; /* 初始透明 */
+animation: fadeBorder 1.2s ease forwards; /* 添加边框与淡入动画 */
+transition: all 0.3s ease, border-color 0.3s ease;
+}
+
+/* 悬停时高亮边框 */
+.fic-button:hover {
+border-top-color: rgba(255, 255, 255, 0.6);
+border-bottom-color: rgba(255, 255, 255, 0.6);
+transform: scale(1.02);
+}
+
+/* 点击时透明度降低 */
+.fic-button:active {
+opacity: 0.6;
+}
+
+/* 动画定义：淡入并显现边框 */
+@keyframes fadeBorder {
+0% {
+opacity: 0;
+border-top-color: rgba(255, 255, 255, 0);
+border-bottom-color: rgba(255, 255, 255, 0);
+}
+100% {
+opacity: 1;
+border-top-color: rgba(255, 255, 255, 0.7);
+border-bottom-color: rgba(255, 255, 255, 0.7);
+}
+}
+
+
+.fic-title {
+  text-align: left;
+  
+  text-shadow: 0 -6px 4px #ffffff, /*上*/
+    4px -4px 4px #ffffff, /*右上*/
+    6px 0 4px #ffffff, /*右*/
+    4px 4px 4px #ffffff, /*右下*/	
+    0 6px 4px #ffffff, /*下*/
+    -4px 4px 4px #ffffff, /*左下*/
+    -6px 0 4px #ffffff, /*左*/
+    -4px -4px 4px #ffffff; /*左上*/
+
+}
+
+.fic-author {
+  text-align: right;
+ 
+  font-size: 18px;
+  opacity: 0.9;
+  color:white;
+  text-shadow: 0 -6px 4px rgba(87, 133, 119, 0.332), /*上*/
+    4px -4px 4px rgba(87, 133, 119, 0.332), /*右上*/
+    6px 0 4px rgba(87, 133, 119, 0.332), /*右*/
+    4px 4px 4px rgba(87, 133, 119, 0.332), /*右下*/	
+    0 6px 4px rgba(87, 133, 119, 0.332), /*下*/
+    -4px 4px 4px rgba(87, 133, 119, 0.332), /*左下*/
+    -6px 0 4px rgba(87, 133, 119, 0.332), /*左*/
+    -4px -4px 4px rgba(87, 133, 119, 0.332); /*左上*/
+}
+
+.content img.bottom-img {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+width: auto;
+max-width: 70%;
+opacity: 0.9;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  /* 将 sidebar 转为顶部导航栏 */
+  .sidebar {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 98%;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    padding: 0 5px;
+    background-color: rgba(87, 133, 119, 0.188);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+  }
+
+  .sidebar img {
+    width: 50px;
+    height: auto;
+    margin: 0;
+  }
+
+  .sidebar a {
+    flex: 1;
+    padding: 0;
+    line-height: 60px;
+    font-size: 14px;
+  }
+
+  .content {
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+  /* 背景图片放大适配移动端 */
+  body::before, body::after {
+    background-size: cover;
+    background-position: center center;
+    transform: scale(1.1); /* 背景放大一点以适配竖屏 */
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- 背景层下的窗格 -->
+  <div class="window"></div>
+
+  <!-- 内容层 -->
+
+  <div class="container">
+    <!-- 左侧导航栏 -->
+    <div class="sidebar">
+      <a href="index.html"><img src="image/63d22705bef2cdfd349a8c5d6fb4eec7 - 副本.png" alt="Logo" class="logo"></a>
+      <a href="fic.html" class="nav-item active">fic</a>
+      <a href="art.html" class="nav-item">art</a>
+      <a href="vid.html" class="nav-item">vid</a>
+    </div>
+
+
+<!-- 右侧小说目录 -->
+<div class="content">
+  <a href="12.html" class="fic-button">
+    <span class="fic-title">受创后动物感伤</span>
+    <span class="fic-author">情愿你还呼唤我为狗</span>
+  </a>
+  <a href="15.html" class="fic-button">
+    <span class="fic-title">ハツピ-エン ド </span>
+    <span class="fic-author">嬷嬷你的豆</span>
+  </a>
+  <a href="16.html" class="fic-button">
+    <span class="fic-title">悬镜地</span>
+    <span class="fic-author">天使下落的又一次十秒</span>
+  </a>
+  
+  <img src="image/item2.png" alt="bottom image" class="bottom-img">
+</div>
+
+
+
+  </div>
+</body>
+</html>
+
+
+
+
+
