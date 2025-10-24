@@ -252,65 +252,85 @@ border-bottom-color: rgba(255, 255, 255, 0.7);
 
 
 /* ===== 响应式：手机端 ===== */
+/* ===== 响应式：手机端 ===== */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
-  /* 将 sidebar 转为顶部导航栏 */
-  .sidebar {
-    flex-direction: row;
-    justify-content: space-around;
-    width: 98%;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    padding: 0 5px;
-    background-color: rgba(87, 133, 119, 0.188);
-    backdrop-filter: blur(6px);
-    z-index: 10;
-  }
-
-  .sidebar img {
-    width: auto;
-    height: 70px;              /* ✅ 限制高度匹配导航栏 */
-    display: block;            /* ✅ 彻底消除基线空隙问题 */
-    object-fit: contain;       /* ✅ 保持比例不变 */
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
-
-  .sidebar a {
-    flex: 1;
-    padding: 0;
-    line-height: 60px;
-    font-size: 14px;
-  }
-
-  .content {
-    padding: 20px;
-    margin-top: 10px;
-  }
-
-  .fic-title {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-  .fic-author {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-
-  /* 背景图片放大适配移动端 */
-  body::before, body::after {
-    background-size: cover;
-    background-position: center center;
-    transform: scale(1.1); /* 背景放大一点以适配竖屏 */
-  }
-
-  
+.container {
+flex-direction: column;
 }
+
+/* 将 sidebar 转为顶部横向导航栏 */
+.sidebar {
+flex-direction: row;
+justify-content: flex-start; /* ✅ 改为左对齐，使 logo 靠左 */
+align-items: center;
+width: 100%;
+height: 60px;
+position: sticky;
+top: 0;
+padding: 0 10px; /* ✅ 左右少量留白 */
+background-color: rgba(87, 133, 119, 0.188);
+backdrop-filter: blur(6px);
+z-index: 10;
+}
+
+.sidebar img {
+height: 65px;            /* ✅ 稍微缩小一点 */
+object-fit: contain;
+margin-right: auto;      /* ✅ 保证靠左对齐 */
+display: block;
+}
+
+.nav-item {
+font-size: 14px;
+flex: 0 0 auto;
+padding: 0 10px;
+line-height: 60px;
+}
+
+/* 内容区整体留白减少，适配竖屏 */
+.content {
+padding: 15px;
+margin-top: 10px;
+}
+
+/* ✅ fic-button 在移动端更紧凑 */
+.fic-button {
+width: 95%;
+padding: 10px 12px;      /* ✅ 减少内边距 */
+font-size: 16px;
+margin: 6px auto;
+}
+
+/* ✅ 左右文本更分离 */
+.fic-title {
+text-align: left;
+font-size: 15px;
+flex: 1;
+margin-right: 10px;
+}
+
+.fic-author {
+text-align: right;
+font-size: 14px;
+flex-shrink: 0;
+white-space: nowrap;
+}
+
+/* ✅ 底部图片放大并居中 */
+.content img.bottom-img {
+max-width: 90%;
+opacity: 0.95;
+margin-top: 30px;
+}
+
+/* ✅ 背景适配竖屏但不过度放大 */
+body::before, body::after {
+background-size: cover;
+background-position: center center;
+transform: scale(1.05);
+}
+}
+
 
 
   </style>
