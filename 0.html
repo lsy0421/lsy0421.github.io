@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0:00</title>
+  <style>
+    /* ===== 页面基础样式 ===== */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+
+/* ===== 背景叠加层 ===== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    url("image/74bcb93c8b3bcefd005e37f3551a0edc.png"),
+    url("image/bg.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center center, center center;
+  background-size: cover, cover;
+  background-attachment: fixed;
+  z-index: -3;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("image/0572f1c3603276488090c35af1151c72.png") center center / cover no-repeat fixed;
+  opacity: 0.3;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* ===== 半透明窗格层 ===== */
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 1000px;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  background: rgba(2, 36, 191, 0);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  display: flex;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* ===== 内容总容器 ===== */
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  height: 80%;
+  z-index: 2;
+}
+
+/* ===== 左侧导航栏 ===== */
+.sidebar {
+  width: 200px;
+  background: rgba(87, 133, 119, 0.188);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar img.logo {
+  width: 230px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.nav-item {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  transition: background 0.3s, opacity 0.3s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
+/* ===== 右侧正文内容区 ===== */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(87, 133, 119, 0.3) transparent;
+}
+
+/* 滚动条样式一致 */
+.content::-webkit-scrollbar {
+  width: 12px;
+}
+.content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(87,133,119,0.7), rgba(87,133,119,0.4));
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(87,133,119,0.9), rgba(87,133,119,0.6));
+}
+
+/* ===== Title 样式（与目录按钮一致） ===== */
+.fic-title {
+  width: 80%;
+  max-width: 700px;
+  padding: 20px 30px;
+  margin: 0 auto;
+  font-family: 'YouYuan';
+  font-weight: bold;
+  font-size: 28px;
+  text-align: center;
+  color: rgba(43, 93, 77, 0.736);
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  background: transparent;
+  text-shadow: 0 -6px 4px #ffffff, /*上*/
+    4px -4px 4px #ffffff, /*右上*/
+    6px 0 4px #ffffff, /*右*/
+    4px 4px 4px #ffffff, /*右下*/	
+    0 6px 4px #ffffff, /*下*/
+    -4px 4px 4px #ffffff, /*左下*/
+    -6px 0 4px #ffffff, /*左*/
+    -4px -4px 4px #ffffff; /*左上*/
+  transition: all 0.3s ease;
+}
+
+.fic-title:hover {
+  border-top-color: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.02);
+}
+
+/* ===== 作者名样式 ===== */
+.fic-author {
+  text-align: right;
+  font-style: italic;
+  font-size: 18px;
+  font-family:'YouYuan';
+  margin-top: 15px;
+  margin-right: 40px;
+  
+  opacity: 0.9;
+  color:white;
+  text-shadow: 0 -6px 4px rgba(87, 133, 119, 0.332), /*上*/
+    4px -4px 4px rgba(87, 133, 119, 0.332), /*右上*/
+    6px 0 4px rgba(87, 133, 119, 0.332), /*右*/
+    4px 4px 4px rgba(87, 133, 119, 0.332), /*右下*/	
+    0 6px 4px rgba(87, 133, 119, 0.332), /*下*/
+    -4px 4px 4px rgba(87, 133, 119, 0.332), /*左下*/
+    -6px 0 4px rgba(87, 133, 119, 0.332), /*左*/
+    -4px -4px 4px rgba(87, 133, 119, 0.332); /*左上*/
+}
+
+/* ===== 主图片样式 ===== */
+.main-image {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+/* ===== 响应式布局 ===== */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidebar {
+box-sizing: border-box;
+flex-direction: row;
+justify-content: space-evenly; /* ✅ 所有选项卡均匀分布 */
+align-items: center;
+width: 100%;
+height: 60px;
+position: sticky;
+top: 0;
+left: 0;
+padding: 0 6px;
+margin: 0;
+background-color: rgba(87, 133, 119, 0.188);
+backdrop-filter: blur(6px);
+z-index: 10;
+overflow: hidden;
+}
+
+.sidebar img {
+height: 50px; /* ✅ 略缩小图片防止超出导航栏 */
+object-fit: contain;
+margin: 0 5px;
+flex: 0 0 auto;
+display: block;
+}
+
+.nav-item {
+flex: 1; /* ✅ 平均分配宽度 */
+font-size: 13px; /* ✅ 缩小字体使选项卡不溢出 */
+text-align: center;
+padding: 0;
+line-height: 60px;
+white-space: nowrap;
+}
+
+  .content {
+    padding: 20px;
+    margin-top: 10px;
+  }
+  .fic-title {
+    font-size: 22px;
+  }
+  .fic-author {
+    font-size: 16px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="window"></div>
+
+  <div class="container">
+    <!-- 导航栏 -->
+    <div class="sidebar">
+      <a href="index.html"><img src="image/63d22705bef2cdfd349a8c5d6fb4eec7 - 副本.png" alt="Logo" class="logo"></a>
+      <a href="fic.html" class="nav-item">fic</a>
+      <a href="art.html" class="nav-item active">art</a>
+      <a href="vid.html" class="nav-item">vid</a>
+    </div>
+
+
+<!-- 正文区 -->
+<div class="content">
+  <div class="fic-title">0:00</div>
+  <div class="fic-author">情愿你还呼唤我为狗</div>
+  <img src="image/0.jpg" alt="main image" class="main-image">
+</div>
+
+
+  </div>
+</body>
+</html>
