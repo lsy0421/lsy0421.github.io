@@ -149,15 +149,111 @@
       text-decoration: underline;
     }
 
-    @media screen and (max-width:1006px) {
-  .window { top: 50%; }
-  .contents { height: 100vh; }
-  img.frame3 { height: 150%; top: -10vh; }
-  img.frame, img.frame2 { display: none !important; }
-  
-  .menu.show { max-width: 300px; width: 70%; }
-  .menu.show img { max-height: 65px; }
+    @media screen and (max-width: 768px) {
+  /* 窗体撑满视口 */
+  .window {
+    width: 100%;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: none;
+  }
+
+  .contents {
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* 允许图片被裁切 */
+  }
+
+  /* 强制显示所有图层并让它们覆盖视口（可被裁切） */
+  .title-frame img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;      /* 拉伸到视口宽度 */
+    height: 100%;     /* 拉伸到视口高度 */
+    object-fit: cover;/* 保持比例并裁切溢出部分 */
+    opacity: 1;
+  }
+
+  /* 如果之前有 hide 规则，这里强制覆盖 */
+  img.frame, img.frame2, img.frame3 {
+    display: block !important;
+  }
+
+  /* 按层级调整（保留原有 z-index）并可微调缩放 */
+  img.frame  { z-index: 5; transform-origin: center center; }
+  img.frame2 { z-index: 4; transform-origin: center center; }
+  img.frame3 { z-index: 3; transform-origin: center center; }
+
+  /* 允许在必要时做额外轻度缩放（使边框/装饰更丰满） */
+  img.frame  { transform: scale(1.05); }
+  img.frame2 { transform: scale(1.0); }
+  img.frame3 { transform: scale(1.0); }
+
+  /* 标题：放大并下移以保持在视野中心偏下位置 */
+  img.title {
+    z-index: 10;
+    position: absolute;
+    top: 50%; /* 下移，保证在放大背景上仍可见 */
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.3); /* 放大比例可微调 */
+    max-width: 95%;
+    width: auto;
+    height: auto;
+    pointer-events: auto;
+  }
+
+  /* 菜单整体：放大、向下微移以对齐标题视觉 */
+  .menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%) scale(1.5); /* 向下/向上调整并放大 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    z-index: 99;
+    opacity: 0; /* 保持现有 show 逻辑 */
+    pointer-events: none;
+    transition: transform 240ms ease, opacity 200ms ease;
+  }
+
+  .menu.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* 菜单项图像按视口比例放大（保持长宽比） */
+  .menu-item img {
+    display: block;
+    width: auto;
+    max-width: 60vw;   /* 根据屏幕宽度按比例放大 */
+    height: auto;
+    object-fit: contain;
+    transform: scale(1); /* 额外 scale 已在 .menu 上应用 */
+    transition: transform 160ms ease;
+  }
+
+  /* 可选：鼠标/触控交互缩放效果 */
+  .menu-item:active,
+  .menu-item:focus {
+    transform: translateY(1px) scale(1.02);
+  }
+
+  /* 页脚微调 */
+  .copy {
+    font-size: 12px;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+  }
+
 }
+
 
   </style>
 </head>

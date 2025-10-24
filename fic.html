@@ -103,6 +103,7 @@ body::after {
   color: white;
   text-decoration: none;
   font-size: 25px;
+  font-family: "Lucida Console", "Courier New", monospace;
   transition: background 0.3s, opacity 0.3s;
 }
 
@@ -241,9 +242,13 @@ opacity: 0.9;
   }
 
   .sidebar img {
-    width: 50px;
-    height: auto;
+    width: auto;
+    height: 70px;              /* ✅ 限制高度匹配导航栏 */
+    display: block;            /* ✅ 彻底消除基线空隙问题 */
+    object-fit: contain;       /* ✅ 保持比例不变 */
     margin: 0;
+    padding: 0;
+    align-items: center;
   }
 
   .sidebar a {
@@ -256,6 +261,15 @@ opacity: 0.9;
   .content {
     padding: 20px;
     margin-top: 10px;
+  }
+
+  .fic-title {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+  .fic-author {
+    padding: 10px 14px;
+    font-size: 15px;
   }
 
   /* 背景图片放大适配移动端 */
