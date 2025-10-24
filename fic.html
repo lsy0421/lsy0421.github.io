@@ -222,62 +222,87 @@ opacity: 0.9;
 }
 
 
+/* ===== 响应式：手机端 ===== */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
+.container {
+flex-direction: column;
+}
 
-  /* 将 sidebar 转为顶部导航栏 */
-  .sidebar {
-    flex-direction: row;
-    justify-content: space-around;
-    width: 98%;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    padding: 0 5px;
-    background-color: rgba(87, 133, 119, 0.188);
-    backdrop-filter: blur(6px);
-    z-index: 10;
-  }
+/* 将 sidebar 转为顶部横向导航栏 */
+.sidebar {
+box-sizing: border-box;
+flex-direction: row;
+justify-content: space-evenly; /* ✅ 所有选项卡均匀分布 */
+align-items: center;
+width: 100%;
+height: 60px;
+position: sticky;
+top: 0;
+left: 0;
+padding: 0 6px;
+margin: 0;
+background-color: rgba(87, 133, 119, 0.188);
+backdrop-filter: blur(6px);
+z-index: 10;
+overflow: hidden;
+}
 
-  .sidebar img {
-    width: auto;
-    height: 70px;              /* ✅ 限制高度匹配导航栏 */
-    display: block;            /* ✅ 彻底消除基线空隙问题 */
-    object-fit: contain;       /* ✅ 保持比例不变 */
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
+.sidebar img {
+height: 95%;
+width: auto;
+object-fit: cover; 
+margin: 0;
+flex: 0 0 auto;
+display: block;
+}
 
-  .sidebar a {
-    flex: 1;
-    padding: 0;
-    line-height: 60px;
-    font-size: 14px;
-  }
+.nav-item {
+flex: 1; /* ✅ 平均分配宽度 */
+font-size: 13px; /* ✅ 缩小字体使选项卡不溢出 */
+text-align: center;
+padding: 0;
+line-height: 60px;
+white-space: nowrap;
+}
 
-  .content {
-    padding: 20px;
-    margin-top: 10px;
-  }
+.content {
+padding: 15px;
+margin-top: 10px;
+}
 
-  .fic-title {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-  .fic-author {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
+.fic-button {
+width: 95%;
+padding: 10px 12px;
+font-size: 16px;
+margin: 6px auto;
+}
 
-  /* 背景图片放大适配移动端 */
-  body::before, body::after {
-    background-size: cover;
-    background-position: center center;
-    transform: scale(1.1); /* 背景放大一点以适配竖屏 */
-  }
+.fic-title {
+text-align: left;
+font-size: 15px;
+flex: 1;
+margin-right: 10px;
+}
+
+.fic-author {
+text-align: right;
+font-size: 14px;
+flex-shrink: 0;
+white-space: nowrap;
+}
+
+.content img.bottom-img {
+max-width: 90%;
+opacity: 0.95;
+margin-top: 30px;
+}
+
+body::before,
+body::after {
+background-size: cover;
+background-position: center center;
+transform: scale(1.05);
+}
 }
 
 
